@@ -1,0 +1,255 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Work+Sans:ital,wght@0,400;0,700;0,800;0,900;1,900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-background': '#dde3ee',
+              'on-secondary': '#4a2800',
+              secondary: '#f6bb81',
+              'surface-container-highest': '#2f353e',
+              'outline-variant': '#554434',
+              'primary-fixed': '#ffdcbd',
+              tertiary: '#8ed5ff',
+              'on-primary': '#4a2800',
+              'on-surface-variant': '#dbc2ad',
+              'surface-container-high': '#242a33',
+              'surface-container': '#1a2028',
+              'inverse-on-surface': '#2b3139',
+              'surface-tint': '#ffb86f',
+              'tertiary-fixed-dim': '#7cd0ff',
+              'on-primary-container': '#653a00',
+              'inverse-surface': '#dde3ee',
+              'surface-dim': '#0e141c',
+              'secondary-fixed-dim': '#f6bb81',
+              'on-error-container': '#ffdad6',
+              'surface-container-low': '#161c24',
+              error: '#ffb4ab',
+              background: '#0e141c',
+              'surface-container-lowest': '#090f16',
+              primary: '#ffc082',
+              'surface-bright': '#343a42',
+              'error-container': '#93000a',
+              surface: '#0e141c',
+              'on-error': '#690005',
+              'on-secondary-container': '#e3aa71',
+              'on-secondary-fixed-variant': '#663e0e',
+              outline: '#a38d7a',
+              'primary-container': '#ff9900',
+              'on-tertiary': '#00344a',
+              'surface-variant': '#2f353e',
+              'tertiary-fixed': '#c4e7ff',
+              'tertiary-container': '#04beff',
+              'primary-fixed-dim': '#ffb86f',
+              'secondary-fixed': '#ffdcbd',
+              'on-tertiary-container': '#004965',
+              'on-primary-fixed': '#2c1600',
+              'on-secondary-fixed': '#2c1600',
+              'secondary-container': '#663e0e',
+              'on-tertiary-fixed': '#001e2c',
+              'on-tertiary-fixed-variant': '#004c69',
+              'on-primary-fixed-variant': '#693c00',
+              'inverse-primary': '#8a5100',
+              'on-surface': '#dde3ee',
+            },
+            borderRadius: {
+              DEFAULT: '0.125rem',
+              lg: '0.25rem',
+              xl: '0.5rem',
+              full: '0.75rem',
+            },
+            fontFamily: {
+              headline: ['Work Sans'],
+              body: ['Inter'],
+              label: ['Inter'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      .action-gradient {
+        background: linear-gradient(135deg, #ff9900 0%, #ffc082 100%);
+      }
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+    <style>
+      body {
+        min-height: auto;
+      }
+    </style>
+  </head>
+  <body class="bg-dark text-light container kinetic-page">
+    <!-- Sidebar -->
+    <app-sidebar [isOpen]="sidebarOpen" (closeMenu)="closeSidebar()"></app-sidebar>
+
+    <!-- Navbar -->
+    <nav
+      class="container navbar navbar-dark fixed-top px-3 rounded-5 rounded-bottom-5 kinetic-header"
+    >
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <!-- Left -->
+        <div class="d-flex align-items-center gap-2">
+          <button
+            class="btn btn-sm kinetic-icon-btn"
+            aria-label="Open menu"
+            (click)="toggleSidebar()"
+          >
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+
+          <h1 class="h4 mb-0 fw-bold fst-italic kinetic-brand">KINETIC</h1>
+          <span class="kinetic-badge">Prime Choice</span>
+        </div>
+
+        <!-- Right -->
+        <div class="header-actions-wrap">
+          <button class="btn btn-sm kinetic-icon-btn" aria-label="Open cart">
+            <span class="material-symbols-outlined">shopping_cart</span>
+          </button>
+          <!-- (mouseleave)="closeUserMenu()" -->
+          @if (isAuthenticated) {
+            <div class="user-dropdown" (mouseenter)="openUserMenu()">
+              <button
+                type="button"
+                class="user-trigger"
+                (click)="toggleUserMenu()"
+                aria-haspopup="menu"
+                [attr.aria-expanded]="userMenuOpen"
+              >
+                @if (userService.userName()) {
+                  <!-- <span class="user-avatar">{{ userName.charAt(0) || 'U' }}</span> -->
+                  <span class="user-name">{{ userService.userName() || 'User' }}</span>
+                  <span class="material-symbols-outlined user-chevron">expand_more</span>
+                }
+              </button>
+
+              @if (userMenuOpen) {
+                <div class="user-menu" role="menu" (mouseenter)="openUserMenu()">
+                  <button
+                    type="button"
+                    class="user-menu-item"
+                    role="menuitem"
+                    (click)="goToProfile()"
+                  >
+                    Profile
+                  </button>
+                  @if (userService.role() == 'admin') {
+                    <button
+                      type="button"
+                      class="user-menu-item"
+                      role="menuitem"
+                      (click)="goToAllUsers()"
+                    >
+                      Users
+                    </button>
+                    <button
+                      type="button"
+                      class="user-menu-item"
+                      role="menuitem"
+                      (click)="goToCarts()"
+                    >
+                      Carts
+                    </button>
+                    <button
+                      type="button"
+                      class="user-menu-item"
+                      role="menuitem"
+                      (click)="goToDashboard()"
+                    >
+                      Dashboard
+                    </button>
+                  }
+
+                  <button
+                    type="button"
+                    class="user-menu-item logout-item"
+                    role="menuitem"
+                    (click)="logout()"
+                  >
+                    Logout
+                  </button>
+                </div>
+              }
+            </div>
+          } @else {
+            <a routerLink="/login" class="ms-2 link-light text-decoration-none kinetic-login-link"
+              >login</a
+            >
+          }
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="container-fluid mt-2">
+        <div class="input-group kinetic-search-wrap">
+          <span class="input-group-text border-0 kinetic-search-icon">
+            <span class="material-symbols-outlined">search</span>
+          </span>
+
+          <input
+            #searchInput
+            type="text"
+            class="form-control border-0 kinetic-search-input"
+            placeholder="Search Kinetic Merchant"
+            (keyup.enter)="onSearch(searchInput.value)"
+          />
+
+          <button class="btn fw-bold kinetic-search-btn" (click)="onSearch(searchInput.value)">
+            Search
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="pt-5 mt-5">
+      <!-- Navigation Pills -->
+      <div class="container mt-3 d-flex justify-content-center gap-5">
+        <div class="nav-pills-shell">
+          <div class="kinetic-nav" role="tablist" aria-label="Store quick links">
+            <a routerLink="/beauty" class="kinetic-chip" aria-current="page"> beauty </a>
+
+            <a routerLink="/fragrances" class="kinetic-chip"> fragrances </a>
+
+            <a routerLink="/furniture" class="kinetic-chip"> furniture </a>
+
+            <a routerLink="/groceries" class="kinetic-chip"> groceries </a>
+
+            <a routerLink="/home-decoration" class="kinetic-chip"> home-decoration </a>
+
+            <a routerLink="/kitchen-accessories" class="kinetic-chip"> kitchen-accessories </a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

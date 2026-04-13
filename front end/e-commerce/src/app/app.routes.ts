@@ -1,0 +1,74 @@
+import { Routes } from '@angular/router';
+import { Home } from './pages/core/home/home';
+import { Beauty } from './pages/catalog/beauty/beauty';
+import { Fragrances } from './pages/catalog/fragrances/fragrances';
+import { Furniture } from './pages/catalog/furniture/furniture';
+import { Groceries } from './pages/catalog/groceries/groceries';
+import { HomeDecoration } from './pages/catalog/home-decoration/home-decoration';
+import { KitchenAccessories } from './pages/catalog/kitchen-accessories/kitchen-accessories';
+import { Laptops } from './pages/catalog/laptops/laptops';
+import { MensShirts } from './pages/catalog/mens-shirts/mens-shirts';
+import { MensShoes } from './pages/catalog/mens-shoes/mens-shoes';
+import { MensWatches } from './pages/catalog/mens-watches/mens-watches';
+import { MobileAccessories } from './pages/catalog/mobile-accessories/mobile-accessories';
+import { Motorcycle } from './pages/catalog/motorcycle/motorcycle';
+import { SkinCare } from './pages/catalog/skin-care/skin-care';
+import { Smartphones } from './pages/catalog/smartphones/smartphones';
+import { SportsAccessories } from './pages/catalog/sports-accessories/sports-accessories';
+import { Sunglasses } from './pages/catalog/sunglasses/sunglasses';
+import { Tablets } from './pages/catalog/tablets/tablets';
+import { Tops } from './pages/catalog/tops/tops';
+import { Vehicle } from './pages/catalog/vehicle/vehicle';
+import { WomensBags } from './pages/catalog/womens-bags/womens-bags';
+import { WomensDresses } from './pages/catalog/womens-dresses/womens-dresses';
+import { WomensJewellery } from './pages/catalog/womens-jewellery/womens-jewellery';
+import { WomensShoes } from './pages/catalog/womens-shoes/womens-shoes';
+import { WomensWatches } from './pages/catalog/womens-watches/womens-watches';
+import { ProductDetails } from './pages/product/product-details/product-details';
+import { SearchProducts } from './pages/product/search-products/search-products';
+import { DashboardCart } from './pages/product/dashboard-cart/dashboard-cart';
+import { Login } from './pages/auth/login/login';
+import { Register } from './pages/auth/register/register';
+import { Profile } from './pages/core/profile/profile';
+import { ChangePassword } from './pages/core/change-password/change-password';
+import { AllUsers } from './pages/admin/all-users/all-users';
+import { Carts } from './pages/admin/carts/carts';
+import { Dashboard } from './pages/admin/dashboard/dashboard';
+
+export const routes: Routes = [
+  { path: '', component: Home },
+  { path: 'login', component: Login },
+  { path: 'register', component: Register },
+  { path: 'profile', component: Profile },
+  { path: 'change-password', component: ChangePassword },
+  { path: 'admin/users', component: AllUsers },
+  { path: 'admin/carts', component: Carts },
+  { path: 'admin/dashboard', component: Dashboard },
+  { path: 'product/:id', component: ProductDetails },
+  { path: 'search-products', component: SearchProducts },
+  { path: 'dashboard-cart', component: DashboardCart },
+  { path: 'beauty', component: Beauty },
+  { path: 'fragrances', component: Fragrances },
+  { path: 'furniture', component: Furniture },
+  { path: 'groceries', component: Groceries },
+  { path: 'home-decoration', component: HomeDecoration },
+  { path: 'kitchen-accessories', component: KitchenAccessories },
+  { path: 'laptops', component: Laptops },
+  { path: 'mens-shirts', component: MensShirts },
+  { path: 'mens-shoes', component: MensShoes },
+  { path: 'mens-watches', component: MensWatches },
+  { path: 'mobile-accessories', component: MobileAccessories },
+  { path: 'motorcycle', component: Motorcycle },
+  { path: 'skin-care', component: SkinCare },
+  { path: 'smartphones', component: Smartphones },
+  { path: 'sports-accessories', component: SportsAccessories },
+  { path: 'sunglasses', component: Sunglasses },
+  { path: 'tablets', component: Tablets },
+  { path: 'tops', component: Tops },
+  { path: 'vehicle', component: Vehicle },
+  { path: 'womens-bags', component: WomensBags },
+  { path: 'womens-dresses', component: WomensDresses },
+  { path: 'womens-jewellery', component: WomensJewellery },
+  { path: 'womens-shoes', component: WomensShoes },
+  { path: 'womens-watches', component: WomensWatches },
+];

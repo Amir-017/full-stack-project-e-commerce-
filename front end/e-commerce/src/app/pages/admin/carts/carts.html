@@ -1,0 +1,110 @@
+<section class="admin-carts-page">
+  <div class="container-fluid px-3 px-md-4 py-4 py-lg-5">
+    <!-- Header -->
+    <div class="carts-header mb-5">
+      <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+        <div>
+          <h1 class="display-5 fw-bold text-white mb-2">All Shopping Carts</h1>
+          <p class="text-light">Manage and view all customer shopping carts</p>
+        </div>
+        <span
+          class="badge badge-lg"
+          style="background: linear-gradient(135deg, #ff9900, #ffc082); color: white"
+        >
+          {{ allCarts().length }} Users
+        </span>
+      </div>
+    </div>
+
+    <!-- Error Alert -->
+    @if (requestError()) {
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> {{ requestError() }}
+      </div>
+    }
+
+    <!-- Loading State -->
+    @if (isLoading()) {
+      <div class="text-center py-5">
+        <div class="spinner-border" style="color: #ff9900" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="text-muted mt-3">Loading all carts...</p>
+      </div>
+    } @else {
+      @if (allCarts().length === 0) {
+        <div class="alert alert-info" role="alert">
+          <strong>No carts found</strong> - No customer shopping carts available at the moment.
+        </div>
+      } @else {
+        <div class="row g-4">
+          @for (cart of allCarts(); track cart.userName._id) {
+            <!-- User Section -->
+            <div class="col-12">
+              <div class="user-cart-container">
+                <!-- User Header -->
+                <div
+                  class="user-header"
+                  style="background: linear-gradient(135deg, #1a1a1a 0%, #ff8800 100%)"
+                >
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                      <h2 class="h5 text-white mb-1">{{ cart.userName.name }}</h2>
+                      <small class="text-white-50">{{ cart.userName.email }}</small>
+                    </div>
+                    <span class="badge bg-white text-dark px-3 py-2">
+                      {{ cart.products.length }} Product{{ cart.products.length !== 1 ? 's' : '' }}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="products-container p-4">
+                  @if (cart.products.length === 0) {
+                    <p class="text-muted text-center py-3">No products in this cart</p>
+                  } @else {
+                    <div class="row g-3">
+                      @for (item of cart.products; track item._id) {
+                        <!-- Product Card -->
+                        <div class="col-12 col-sm-6 col-lg-4">
+                          <div class="product-card">
+                            <div class="product-image-wrapper w-100">
+                              <img
+                                [src]="
+                                  item.product.thumbnail ||
+                                  item.product.images?.[0] ||
+                                  'https://via.placeholder.com/150'
+                                "
+                                [alt]="item.product.title"
+                                class="product-image w-50"
+                              />
+                              <!-- <span class="product-quantity">{{ item.quantity }}</span> -->
+                            </div>
+
+                            <div class="product-info">
+                              <h3 class="product-title">{{ item.product.title }}</h3>
+                              <h3 class="product-title">{{ item.product.description }}</h3>
+                            <div class="d-flex justify-content-between align-items-center">
+                               <p class="product-price">${{ item.product.price }}</p>
+                              <p class="">{{item.product.price * item.quantity}}</p>
+                            </div>
+
+                              <div class="product-footer d-flex justify-content-between">
+                                <span class="qty-badge">Qty: {{ item.quantity }}</span>
+                                <button class="btn btn-warning" routerLink="/">Home</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+  </div>
+</section>

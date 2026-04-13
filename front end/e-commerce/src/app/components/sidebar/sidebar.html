@@ -1,0 +1,36 @@
+<div class="sidebar-overlay" [class.active]="isOpen" (click)="onBackdropClick()"></div>
+
+<aside class="sidebar" [class.open]="isOpen" aria-label="Navigation menu">
+  <div class="sidebar-header">
+    <h2 class="sidebar-title">KINETIC</h2>
+    <button
+      class="sidebar-close-btn"
+      (click)="onBackdropClick()"
+      aria-label="Close menu"
+    >
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+
+  <nav class="sidebar-nav">
+    <ul class="sidebar-links">
+      @for (link of links; track link.href) {
+        <li class="sidebar-item">
+          <a
+            [routerLink]="link.href"
+            class="sidebar-link"
+            (click)="onLinkClick()"
+          >
+            <span class="material-symbols-outlined sidebar-icon">{{ link.icon }}</span>
+            <span class="sidebar-label">{{ link.label }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">
+    <p class="sidebar-tagline">Dark mode collection</p>
+    <p class="sidebar-accent">with Kinetic accent color</p>
+  </div>
+</aside>

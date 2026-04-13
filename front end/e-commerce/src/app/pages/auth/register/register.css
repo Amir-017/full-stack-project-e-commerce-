@@ -1,0 +1,167 @@
+.register-shell {
+  position: relative;
+  min-height: calc(100vh - 8rem);
+  display: grid;
+  place-items: center;
+  padding: 2.5rem 1rem;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgb(255 153 0 / 18%) 0%, transparent 28%),
+    radial-gradient(circle at bottom right, rgb(255 194 128 / 10%) 0%, transparent 26%),
+    linear-gradient(180deg, #0a0f16 0%, #0e141c 52%, #0a0f16 100%);
+}
+
+.register-glow {
+  position: absolute;
+  inset: auto;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  filter: blur(50px);
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.register-glow-start {
+  top: 6%;
+  left: -6rem;
+  background: rgb(255 153 0 / 14%);
+}
+
+.register-glow-end {
+  right: -7rem;
+  bottom: 3%;
+  background: rgb(80 170 255 / 8%);
+}
+
+.register-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 34rem);
+  padding: 1.75rem;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 1.35rem;
+  background: linear-gradient(165deg, rgb(18 25 35 / 96%) 0%, rgb(10 15 22 / 96%) 100%);
+  box-shadow:
+    0 20px 50px rgb(0 0 0 / 40%),
+    inset 0 1px 0 rgb(255 255 255 / 6%);
+  backdrop-filter: blur(14px);
+}
+
+.register-card__header {
+  margin-bottom: 1.25rem;
+}
+
+.register-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: rgb(255 153 0 / 12%);
+  color: #ffbf78;
+  border: 1px solid rgb(255 153 0 / 20%);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.register-card__header h1 {
+  margin: 0.8rem 0 0.5rem;
+  color: #fff4e7;
+  font-size: clamp(1.9rem, 4vw, 2.4rem);
+  line-height: 1.1;
+}
+
+.register-card__header p {
+  margin: 0;
+  color: rgb(226 232 240 / 72%);
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+
+.register-form {
+  display: grid;
+  gap: 0.95rem;
+}
+
+.field-group {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.field-group label {
+  color: #e7edf7;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.register-input {
+  min-height: 3.1rem;
+  border-radius: 0.95rem;
+  border: 1px solid rgb(255 255 255 / 10%);
+  background: rgb(255 255 255 / 4%);
+  color: #f5f8fc;
+  padding: 0.8rem 1rem;
+  box-shadow: none;
+}
+
+.register-input::placeholder {
+  color: rgb(226 232 240 / 46%);
+}
+
+.register-input:focus {
+  border-color: rgb(255 153 0 / 50%);
+  background: rgb(255 255 255 / 6%);
+  color: #ffffff;
+  box-shadow: 0 0 0 0.2rem rgb(255 153 0 / 12%);
+}
+
+.validation-message {
+  color: #ffb38b;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.register-submit {
+  min-height: 3.15rem;
+  margin-top: 0.35rem;
+  border: none;
+  border-radius: 0.95rem;
+  background: linear-gradient(135deg, #ff9900 0%, #ffc082 100%);
+  color: #291600;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: 0 12px 24px rgb(255 153 0 / 22%);
+}
+
+.register-submit:hover,
+.register-submit:focus-visible {
+  color: #291600;
+  filter: brightness(1.04);
+  box-shadow: 0 14px 28px rgb(255 153 0 / 28%);
+  outline: none;
+}
+
+@media (max-width: 576px) {
+  .register-shell {
+    padding: 1.25rem 0.75rem 1.75rem;
+  }
+
+  .register-card {
+    padding: 1.25rem;
+    border-radius: 1.15rem;
+  }
+
+  .register-card__header h1 {
+    font-size: 1.75rem;
+  }
+
+  .register-glow {
+    width: 14rem;
+    height: 14rem;
+    filter: blur(42px);
+  }
+}

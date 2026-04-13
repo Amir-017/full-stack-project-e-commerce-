@@ -1,0 +1,91 @@
+﻿@if (product) {
+  <section class="details-shell" aria-label="Product details">
+    <div class="ambient ambient-1"></div>
+    <div class="ambient ambient-2"></div>
+
+    <div class="details-topbar">
+      <a class="back-chip" routerLink="/" aria-label="Back to products">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Back
+      </a>
+      <!-- <p class="product-id">Product ID: #{{ product._id || product.id }}</p> -->
+    </div>
+
+    <article class="details-card">
+      <div class="media-column">
+        <div class="media-frame pulse">
+          <!-- <img class="hero-image" [src]="product?.images[0]" [alt]="product.title" /> -->
+          <span class="badge-discount">-{{ product.discountPercentage }}%</span>
+          <div class="shine"></div>
+        </div>
+
+        <div class="thumb-strip">
+          @for (image of product.images; track $index) {
+            <figure class="thumb">
+              <img [src]="image" [alt]="product.title + ' image ' + ($index + 1)" />
+            </figure>
+          }
+        </div>
+      </div>
+
+      <div class="info-column">
+        <p class="brand">{{ product.brand }} - {{ product.category }}</p>
+        <h1 class="title">{{ product.title }}</h1>
+        <p class="desc">{{ product.description }}</p>
+
+        <div class="price-wrap">
+          <p class="price">${{ product.price }}</p>
+          <p class="stock" [class.in-stock]="product.inStock" [class.out-stock]="!product.inStock">
+            @if (product.inStock) {
+              In Stock ({{ product.stock }})
+            } @else {
+              Out of Stock
+            }
+          </p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="material-symbols-outlined">star</span>
+            <div>
+              <p class="stat-label">Rating</p>
+              <p class="stat-value">{{ product.rating }}</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <span class="material-symbols-outlined">sell</span>
+            <div>
+              <p class="stat-label">Discount</p>
+              <p class="stat-value">{{ product.discountPercentage }}%</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <span class="material-symbols-outlined">inventory_2</span>
+            <div>
+              <p class="stat-label">Stock</p>
+              <p class="stat-value">{{ product.stock }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="action-btn buy-now" type="button">Buy Now</button>
+          <button class="action-btn add-cart" type="button" (click)="addToCart(product._id)">
+            <span class="material-symbols-outlined">add_shopping_cart</span>
+            Add To Cart
+          </button>
+        </div>
+      </div>
+    </article>
+  </section>
+} @else {
+  <section class="details-shell" aria-label="Product details">
+    <div class="fallback-card">
+      <h2>Product not found</h2>
+      <p>We could not load this product. Please go back and try another one.</p>
+      <a class="back-chip" routerLink="/">Go Home</a>
+    </div>
+  </section>
+}

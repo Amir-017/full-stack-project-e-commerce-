@@ -1,0 +1,13 @@
+.cart-shell {
+  background: linear-gradient(145deg, #121822 0%, #0d131b 100%);
+}
+
+.thumb-img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
+
+.price-accent {
+  color: #f6bb81;
+}

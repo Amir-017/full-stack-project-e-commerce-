@@ -1,0 +1,49 @@
+:host {
+  display: block;
+}
+
+.admin-users-page {
+  min-height: calc(100vh - 160px);
+  background: linear-gradient(135deg, #0e141c 0%, #141c26 48%, #0e141c 100%);
+}
+
+.users-table thead th {
+  color: #ffc082;
+  border-bottom-color: rgb(255 192 130 / 20%);
+}
+
+.users-table tbody tr td {
+  border-color: rgb(255 255 255 / 6%);
+}
+
+.users-table tbody tr:hover {
+  background: rgb(255 255 255 / 3%);
+}
+
+.users-table .btn-outline-warning,
+.users-table .btn-outline-danger {
+  min-width: 7.5rem;
+}
+
+@media (max-width: 768px) {
+  .users-table .btn-outline-warning,
+  .users-table .btn-outline-danger {
+    min-width: auto;
+  }
+}
+
+.admin-users-page {
+  min-height: calc(100vh - 160px);
+  background: linear-gradient(135deg, #0e141c 0%, #141c26 48%, #0e141c 100%);
+}
+
+.users-table thead th {
+  color: #ffc082;
+  font-weight: 700;
+  border-bottom-color: rgb(255 192 130 / 30%);
+}
+
+.users-table td,
+.users-table th {
+  border-color: rgb(255 255 255 / 8%);
+}

@@ -1,0 +1,59 @@
+<section class="login-shell">
+  <div class="login-glow login-glow-start"></div>
+  <div class="login-glow login-glow-end"></div>
+
+  <div class="login-card">
+    <div class="login-card__header">
+      <span class="login-badge">Welcome back</span>
+      <h1>Sign in</h1>
+      <p>Access your account to continue shopping and manage your orders.</p>
+    </div>
+
+    <form action="" [formGroup]="form" (ngSubmit)="submitForm()" class="login-form">
+      <div class="field-group">
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="form-control login-input"
+          placeholder="name@example.com"
+        />
+        @if (form.get('email')?.touched && form.get('email')?.errors?.['required']) {
+          <small class="validation-message">Email is required.</small>
+        }
+        @if (form.get('email')?.touched && form.get('email')?.errors?.['pattern']) {
+          <small class="validation-message">Enter a valid email address.</small>
+        }
+      </div>
+
+      <div class="field-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="form-control login-input"
+          placeholder="Your password"
+        />
+        @if (form.get('password')?.touched && form.get('password')?.errors?.['required']) {
+          <small class="validation-message">Password is required.</small>
+        }
+        @if (form.get('password')?.touched && form.get('password')?.errors?.['minlength']) {
+          <small class="validation-message">Password must be at least 6 characters.</small>
+        }
+      </div>
+
+      @if (requestError) {
+        <p class="request-error">{{ requestError }}</p>
+      }
+
+      <button type="submit" class="btn login-submit">Log in</button>
+
+      <p class="login-footer-text">
+        New here?
+        <a routerLink="/register">Create an account</a>
+      </p>
+    </form>
+  </div>
+</section>   

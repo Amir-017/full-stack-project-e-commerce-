@@ -1,0 +1,64 @@
+﻿<section class="products-area" aria-label="womens-shoes products">
+  <div class="products-head">
+    <h2>Womens Shoes</h2>
+    <p>Womens Shoes collection with the main Kinetic accent color.</p>
+  </div>
+
+  <div class="products-grid">
+    @for (product of products; track $index) {
+      <article class="product-card">
+        <div class="product-image-wrap">
+          <img class="product-image" [src]="product.images[0]" [alt]="product.title" />
+          <div class="image-overlay"></div>
+          <span class="discount-chip">-{{ product.discountPercentage }}%</span>
+        </div>
+
+        <div class="product-body">
+          <p class="product-meta">{{ product.brand }} - {{ product.category }}</p>
+          <h3 class="product-title">{{ product.title }}</h3>
+          <p class="product-desc">{{ product.description }}</p>
+
+          <div class="product-footer">
+            <div class="price-stack">
+              <p class="price">${{ product.price }}</p>
+              <p class="rating">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.868 2.884c.321-.662 1.215-.662 1.536 0l1.681 3.468 3.82 1.24.287.932c.127.413-.053.86-.427 1.118l-2.84 2.77.67 3.803c.086.486-.343.885-.793.649l-3.42-1.798-3.42 1.798c-.45.236-.879-.163-.793-.649l.67-3.803-2.84-2.77c-.374-.258-.554-.705-.427-1.118l.287-.932 3.82-1.24 1.681-3.468z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                {{ product.rating }}
+              </p>
+            </div>
+            <a class="add-to-cart-btn" [attr.href]="'/product/' + product._id" aria-label="View product details">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+</section>
+
+
+
+

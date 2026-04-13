@@ -1,0 +1,214 @@
+.products-area {
+  margin: 1rem;
+  padding: 1rem 0;
+}
+
+.products-head {
+  margin-bottom: 0.9rem;
+}
+
+.products-head h2 {
+  margin: 0;
+  color: #ffd6ac;
+  font-size: clamp(1.15rem, 1.5vw, 1.45rem);
+  letter-spacing: 0.02em;
+}
+
+.products-head p {
+  margin: 0.25rem 0 0;
+  color: rgb(221 227 238 / 72%);
+  font-size: 0.9rem;
+}
+
+.products-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.product-card {
+  --main-accent: #ff9900;
+  --accent-soft: #ffc082;
+  --card-bg: #101721;
+  --card-border: rgb(255 255 255 / 10%);
+  --card-shadow: rgb(0 0 0 / 40%);
+
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 16px 45px var(--card-shadow);
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease;
+  transform-style: preserve-3d;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgb(255 153 0 / 15%) 0%, transparent 40%);
+  opacity: 0;
+  transition: opacity 250ms ease;
+  z-index: 2;
+}
+
+.product-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 24px 55px var(--card-shadow);
+}
+
+.product-card:hover::before {
+  opacity: 1;
+}
+
+.product-image-wrap {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.1);
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--card-bg) 0%, transparent 30%);
+  z-index: 1;
+}
+
+.discount-chip {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  background: linear-gradient(135deg, var(--main-accent) 0%, var(--accent-soft) 100%);
+  color: #2f1b00;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  z-index: 2;
+  text-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+}
+
+.product-body {
+  padding: 1rem 1.1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.product-meta {
+  margin: 0;
+  color: rgb(255 192 130 / 90%);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.product-title {
+  margin: 0.4rem 0 0;
+  color: #f6f8fb;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-shadow: 0 2px 8px rgb(0 0 0 / 30%);
+}
+
+.product-desc {
+  margin: 0.5rem 0 0;
+  color: rgb(221 227 238 / 75%);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  min-height: 4.5em;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-footer {
+  margin-top: 1rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.price-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.price {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent-soft);
+  line-height: 1;
+}
+
+.rating {
+  margin: 0;
+  color: rgb(221 227 238 / 70%);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.rating svg {
+  width: 0.9em;
+  height: 0.9em;
+  color: #ffc700;
+}
+
+.add-to-cart-btn {
+  --btn-bg: rgb(255 255 255 / 8%);
+  --btn-bg-hover: rgb(255 255 255 / 12%);
+  --btn-border: rgb(255 255 255 / 15%);
+  --btn-border-hover: var(--main-accent);
+  --btn-color: #e2e8f0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--btn-color);
+  cursor: pointer;
+  transition: all 200ms ease;
+  backdrop-filter: blur(4px);
+}
+
+.add-to-cart-btn:hover {
+  background: var(--btn-bg-hover);
+  border-color: var(--btn-border-hover);
+  color: var(--main-accent);
+  transform: scale(1.1);
+}
+
+.add-to-cart-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 200ms ease;
+}
+
+.add-to-cart-btn:hover svg {
+  transform: rotate(90deg);
+}

@@ -1,0 +1,84 @@
+<section class="register-shell">
+  <div class="register-glow register-glow-start"></div>
+  <div class="register-glow register-glow-end"></div>
+
+  <div class="register-card">
+    <div class="register-card__header">
+      <span class="register-badge">Create account</span>
+      <h1>Register</h1>
+      <p>Join the store to start shopping, tracking orders, and saving your favorite products.</p>
+    </div>
+
+    <form action="" [formGroup]="form" (ngSubmit)="submitForm()" class="register-form">
+      <div class="field-group">
+        <label for="name">Full name</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          class="form-control register-input"
+          placeholder="Your name"
+        />
+        @if (form.get('name')?.touched && form.get('name')?.errors?.['required']) {
+          <small class="validation-message">Name is required.</small>
+        }
+      </div>
+
+      <div class="field-group">
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="form-control register-input"
+          placeholder="name@example.com"
+        />
+        @if (form.get('email')?.touched && form.get('email')?.errors?.['required']) {
+          <small class="validation-message">Email is required.</small>
+        }
+        @if (form.get('email')?.touched && form.get('email')?.errors?.['pattern']) {
+          <small class="validation-message">Enter a valid email address.</small>
+        }
+      </div>
+
+      <div class="field-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="form-control register-input"
+          placeholder="At least 6 characters"
+        />
+        @if (form.get('password')?.touched && form.get('password')?.errors?.['required']) {
+          <small class="validation-message">Password is required.</small>
+        }
+        @if (form.get('password')?.touched && form.get('password')?.errors?.['minlength']) {
+          <small class="validation-message">Password must be at least 6 characters.</small>
+        }
+      </div>
+
+      <div class="field-group">
+        <label for="confirmedPassword">Confirm password</label>
+        <input
+          id="confirmedPassword"
+          type="password"
+          formControlName="confirmedPassword"
+          class="form-control register-input"
+          placeholder="Repeat your password"
+        />
+        @if (
+          form.get('confirmedPassword')?.touched &&
+          form.get('confirmedPassword')?.errors?.['required']
+        ) {
+          <small class="validation-message">Confirm password is required.</small>
+        }
+        @if (form.touched && form.errors?.['notMatched']) {
+          <small class="validation-message">Passwords do not match.</small>
+        }
+      </div>
+
+      <button type="submit" class="btn register-submit">Create account</button>
+    </form>
+  </div>
+</section>
