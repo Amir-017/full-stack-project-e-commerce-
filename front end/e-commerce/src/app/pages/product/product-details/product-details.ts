@@ -14,6 +14,8 @@ import { CartService } from '../../../services/cart-service';
 export class ProductDetails implements OnInit {
   product: Product | null = null;
   productId = '';
+  hasAccessToken = false;
+  isAdmin = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +26,11 @@ export class ProductDetails implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const token = localStorage.getItem('accessToken') ?? '';
+    const role = (localStorage.getItem('role') ?? '').toLowerCase();
+    this.hasAccessToken = !!token;
+    this.isAdmin = role === 'admin';
+
     this.route.paramMap.subscribe((params) => {
       const rawId = params.get('id');
       this.productId = rawId ?? '';
@@ -49,7 +56,17 @@ export class ProductDetails implements OnInit {
     });
   }
 
-  addToCart(id:string): void {
+  addToCart(id: string): void {
+    if (this.isAdmin) {
+      return;
+    }
+
+    const token = localStorage.getItem('accessToken') ?? '';
+    if (!token) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
     if (!this.productId) {
       return;
     }
@@ -62,7 +79,5 @@ export class ProductDetails implements OnInit {
         this.router.navigate(['/dashboard-cart']);
       },
     });
-   
-
   }
 }

@@ -100,6 +100,8 @@ export class AddProduct {
             inStock: true,
             images: '',
           });
+              this.router.navigate(['/admin/dashboard']);
+
         },
         error: (error) => {
           console.error('add product failed:', error);

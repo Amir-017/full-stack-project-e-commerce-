@@ -34,37 +34,38 @@
     } @else {
       @if (allCarts().length === 0) {
         <div class="alert alert-info" role="alert">
-          <strong>No carts found</strong> - No customer shopping carts available at the moment.
+          <strong>No carts found</strong> - No customer carts with products available at the moment.
         </div>
       } @else {
         <div class="row g-4">
-          @for (cart of allCarts(); track cart.userName._id) {
+          @for (cart of allCarts(); track cart.userName?._id || $index) {
             <!-- User Section -->
-            <div class="col-12">
+    <div class="col-12">
               <div class="user-cart-container">
                 <!-- User Header -->
                 <div
                   class="user-header"
                   style="background: linear-gradient(135deg, #1a1a1a 0%, #ff8800 100%)"
                 >
-                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-                    <div>
-                      <h2 class="h5 text-white mb-1">{{ cart.userName.name }}</h2>
-                      <small class="text-white-50">{{ cart.userName.email }}</small>
+
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                      <div>
+                        <h2 class="h5 text-white mb-1">{{ cart.userName?.name || 'Unknown User' }}</h2>
+                        <small class="text-white-50">{{ cart.userName?.email || 'No email available' }}</small>
+                      </div>
+                      <span class="badge bg-white text-dark px-3 py-2">
+                        {{ cart.products?.length || 0 }} Product{{
+                          (cart.products?.length || 0) !== 1 ? 's' : ''
+                        }}
+                      </span>
                     </div>
-                    <span class="badge bg-white text-dark px-3 py-2">
-                      {{ cart.products.length }} Product{{ cart.products.length !== 1 ? 's' : '' }}
-                    </span>
-                  </div>
+
                 </div>
 
                 <!-- Products Grid -->
                 <div class="products-container p-4">
-                  @if (cart.products.length === 0) {
-                    <p class="text-muted text-center py-3">No products in this cart</p>
-                  } @else {
                     <div class="row g-3">
-                      @for (item of cart.products; track item._id) {
+                      @for (item of cart.products || []; track item._id) {
                         <!-- Product Card -->
                         <div class="col-12 col-sm-6 col-lg-4">
                           <div class="product-card">
@@ -84,10 +85,10 @@
                             <div class="product-info">
                               <h3 class="product-title">{{ item.product.title }}</h3>
                               <h3 class="product-title">{{ item.product.description }}</h3>
-                            <div class="d-flex justify-content-between align-items-center">
-                               <p class="product-price">${{ item.product.price }}</p>
-                              <p class="">Total : {{item.product.price * item.quantity}}</p>
-                            </div>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <p class="product-price">${{ item.product.price }}</p>
+                                <p class="">Total : {{ item.product.price * item.quantity }}</p>
+                              </div>
 
                               <div class="product-footer d-flex justify-content-between">
                                 <span class="qty-badge">Qty: {{ item.quantity }}</span>
@@ -98,10 +99,10 @@
                         </div>
                       }
                     </div>
-                  }
                 </div>
               </div>
             </div>
+
           }
         </div>
       }

@@ -17,13 +17,15 @@ interface ProductItem {
 }
 
 interface Cart {
-  products: ProductItem[];
-  userName: {
+  products: ProductItem[] | null | undefined;
+  userName:
+    | {
     name: string;
     email: string;
     role: string;
     _id: string;
-  };
+      }
+    | null;
 }
 
 @Component({
@@ -42,9 +44,13 @@ export class Carts implements OnInit {
   ngOnInit(): void {
     this.cartService.getAllCarts().subscribe({
       next: (response) => {
-        this.allCarts.set(response.data);
+        const carts = (response.data ?? []).filter(
+          (cart) => (cart.products?.length ?? 0) > 0,
+        ) as Cart[];
+
+        this.allCarts.set(carts);
         this.isLoading.set(false);
-        console.log(response.data);
+        console.log(carts);
 
       },
       error: (err) => {
