@@ -9,7 +9,7 @@ import {
 } from "../controllers/cart.controller.js";
 import { auth, authorize } from "../middleWare/auth.js";
 const router = express.Router();
-     
+        
 router.use(auth);
 router.get("/",authorize('member'), getCart);
 router.delete("/",authorize('member'), clearCart);

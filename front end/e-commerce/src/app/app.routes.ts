@@ -34,6 +34,8 @@ import { ChangePassword } from './pages/core/change-password/change-password';
 import { AllUsers } from './pages/admin/all-users/all-users';
 import { Carts } from './pages/admin/carts/carts';
 import { Dashboard } from './pages/admin/dashboard/dashboard';
+import { AddProduct } from './pages/admin/dashboard/dahsboard/add-Product/add-product';
+import { UpdateProduct } from './pages/admin/dashboard/dahsboard/Update-Product/update-product';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -44,6 +46,8 @@ export const routes: Routes = [
   { path: 'admin/users', component: AllUsers },
   { path: 'admin/carts', component: Carts },
   { path: 'admin/dashboard', component: Dashboard },
+  { path: 'admin/dashboard/add-product', component: AddProduct },
+  { path: 'admin/dashboard/update-product/:id', component: UpdateProduct },
   { path: 'product/:id', component: ProductDetails },
   { path: 'search-products', component: SearchProducts },
   { path: 'dashboard-cart', component: DashboardCart },

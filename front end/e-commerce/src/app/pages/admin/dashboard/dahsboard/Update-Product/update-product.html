@@ -1,0 +1,179 @@
+<section class="add-shell">
+  <div class="glow glow-a"></div>
+  <div class="glow glow-b"></div>
+
+  <div class="container py-4 py-lg-5 position-relative">
+    <div class="hero-panel mb-4">
+      <div>
+        <p class="eyebrow mb-2">Admin Overview</p>
+        <h1 class="hero-title mb-2">Update Product</h1>
+        <p class="hero-copy mb-0">
+          Product ID: <span class="text-warning">{{ productId || 'N/A' }}</span>
+        </p>
+      </div>
+      <button type="button" class="btn btn-outline-light fw-semibold" (click)="goToDashboard()">
+        Back To Dashboard
+      </button>
+    </div>
+
+    @if (loading) {
+      <div class="form-panel d-flex justify-content-center py-5">
+        <div class="spinner-border text-warning" role="status" aria-label="Loading product"></div>
+      </div>
+    } @else {
+      <form class="form-panel" [formGroup]="productForm" (ngSubmit)="submit()">
+        <div class="grid-2">
+          <label class="field">
+            <span class="field-label">Title</span>
+            <input
+              class="field-control"
+              type="text"
+              formControlName="title"
+              placeholder="Product title"
+            />
+            @if (productForm.controls.title.touched && productForm.controls.title.invalid) {
+              <small class="field-error">Title is required (min 3 chars).</small>
+            }
+          </label>
+
+          <label class="field">
+            <span class="field-label">Brand</span>
+            <input
+              class="field-control"
+              type="text"
+              formControlName="brand"
+              placeholder="Brand name"
+            />
+            @if (productForm.controls.brand.touched && productForm.controls.brand.invalid) {
+              <small class="field-error">Brand is required.</small>
+            }
+          </label>
+
+          <label class="field">
+            <span class="field-label">Category</span>
+            <input
+              class="field-control"
+              type="text"
+              formControlName="category"
+              placeholder="Category"
+            />
+            @if (productForm.controls.category.touched && productForm.controls.category.invalid) {
+              <small class="field-error">Category is required.</small>
+            }
+          </label>
+
+          <label class="field">
+            <span class="field-label">Price</span>
+            <input
+              class="field-control"
+              type="number"
+              min="0.01"
+              step="0.01"
+              formControlName="price"
+            />
+            @if (productForm.controls.price.touched && productForm.controls.price.invalid) {
+              <small class="field-error">Price must be greater than 0.</small>
+            }
+          </label>
+
+          <label class="field">
+            <span class="field-label">Discount %</span>
+            <input
+              class="field-control"
+              type="number"
+              min="0"
+              max="99"
+              step="0.01"
+              formControlName="discountPercentage"
+            />
+            @if (
+              productForm.controls.discountPercentage.touched &&
+              productForm.controls.discountPercentage.invalid
+            ) {
+              <small class="field-error">Discount must be between 0 and 99.</small>
+            }
+          </label>
+
+          <label class="field">
+            <span class="field-label">Rating</span>
+            <input
+              class="field-control"
+              type="number"
+              min="0"
+              max="5"
+              step="0.01"
+              formControlName="rating"
+            />
+            @if (productForm.controls.rating.touched && productForm.controls.rating.invalid) {
+              <small class="field-error">Rating must be between 0 and 5.</small>
+            }
+          </label>
+
+          <label class="field">
+            <span class="field-label">Stock</span>
+            <input class="field-control" type="number" min="0" step="1" formControlName="stock" />
+            @if (productForm.controls.stock.touched && productForm.controls.stock.invalid) {
+              <small class="field-error">Stock must be 0 or more.</small>
+            }
+          </label>
+
+          <label class="field field-toggle">
+            <span class="field-label">In Stock</span>
+            <select class="field-control" formControlName="inStock">
+              <option [ngValue]="true">true</option>
+              <option [ngValue]="false">false</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="field mt-3">
+          <span class="field-label">Description</span>
+          <textarea
+            class="field-control"
+            rows="4"
+            formControlName="description"
+            placeholder="Write product description"
+          ></textarea>
+          @if (
+            productForm.controls.description.touched && productForm.controls.description.invalid
+          ) {
+            <small class="field-error">Description is required (min 15 chars).</small>
+          }
+        </label>
+
+        <label class="field mt-3">
+          <span class="field-label">Images</span>
+          <textarea
+            class="field-control"
+            rows="3"
+            formControlName="images"
+            placeholder="Enter image urls separated by commas"
+          ></textarea>
+          <small class="field-hint">Example: https://image-1.webp, https://image-2.webp</small>
+          @if (productForm.controls.images.touched && productForm.controls.images.invalid) {
+            <small class="field-error">At least one image URL is required.</small>
+          }
+        </label>
+
+        @if (submitError) {
+          <div class="alert alert-danger mt-3 mb-0">{{ submitError }}</div>
+        }
+
+        @if (submitSuccess) {
+          <div class="alert alert-success mt-3 mb-0">{{ submitSuccess }}</div>
+        }
+
+        <div class="actions mt-4">
+          <button type="submit" class="submit-btn" [disabled]="submitting">
+            @if (submitting) {
+              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+              Updating...
+            } @else {
+              Update Product
+            }
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+</section>

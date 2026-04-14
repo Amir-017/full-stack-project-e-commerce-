@@ -12,22 +12,39 @@ export interface Product {
   rating: number;
   stock: number;
   title: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface CreateProductRequest {
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  images: string[];
+  inStock: boolean;
 }
 
 export interface ApiResponse {
   products: Product[];
-  // total: number;
+}
+
+export interface DashboardProductsResponse {
+  page: number;
+  limit: number;
+  total: number;
+  products: Product[];
 }
 
 export interface ProductDetailsResponse {
   data: Product;
 }
 
-export interface SearchProductsResponse {
-  products: Product[];
-  page?: number;
-  limit?: number;
-  total?: number;
+export interface SearchProductsResponse extends DashboardProductsResponse {
   totalPages?: number;
   hasNextPage?: boolean;
   hasPrevPage?: boolean;

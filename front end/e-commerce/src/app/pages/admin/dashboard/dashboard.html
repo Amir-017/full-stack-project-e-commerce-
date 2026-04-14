@@ -1,8 +1,121 @@
-<section class="container py-5 text-light">
-  <div class="card bg-dark border-secondary-subtle shadow-sm">
-    <div class="card-body p-4">
-      <h1 class="h4 mb-2">Dashboard</h1>
-      <p class="text-secondary mb-0">Admin dashboard page.</p>
+<section class="dashboard-shell">
+  <div class="dashboard-glow dashboard-glow-left"></div>
+  <div class="dashboard-glow dashboard-glow-right"></div>
+
+  <div class="container py-4 py-lg-5 position-relative">
+    <div class="dashboard-hero mb-4 mb-lg-5">
+      <div>
+        <p class="eyebrow mb-2">Admin Overview</p>
+        <h1 class="hero-title mb-2">Products Dashboard</h1>
+        <p class="hero-copy mb-0">
+          Browse, delete, and update products in a dark animated grid with server-side pagination.
+        </p>
+        <a routerLink="/admin/dashboard/add-product" class="btn btn-warning fw-semibold mt-3">
+          Add Product
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="stat-label">Page</span>
+          <strong class="stat-value">{{ page }}</strong>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-label">Total</span>
+          <strong class="stat-value">{{ total }}</strong>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-label">Showing</span>
+          <strong class="stat-value">{{ products.length }}</strong>
+        </div>
+      </div>
     </div>
+
+    @if (loading) {
+      <div class="loading-panel">
+        <div class="spinner-border text-warning" role="status" aria-label="Loading products"></div>
+      </div>
+    } @else if (products.length === 0) {
+      <div class="empty-state">
+        <h2 class="h5 mb-2">No products found</h2>
+        <p class="mb-0 text-secondary">Try loading another page or check the API response.</p>
+      </div>
+    } @else {
+      <div class="products-grid">
+        @for (product of products; track product._id; let index = $index) {
+          <article class="product-card" [style.--card-delay]="index">
+            <div class="product-image-wrap">
+              <img class="product-image" [src]="product.images[0]" [alt]="product.title" />
+              <div class="image-overlay"></div>
+              <span class="discount-chip">-{{ product.discountPercentage }}%</span>
+            </div>
+
+            <div class="product-body">
+              <p class="product-meta">{{ product.brand }} • {{ product.category }}</p>
+              <h2 class="product-title">{{ product.title }}</h2>
+              <p class="product-desc">{{ product.description }}</p>
+
+              <div class="product-footer">
+                <div class="price-stack">
+                  <p class="price">${{ product.price }}</p>
+                  <p class="rating">
+                    <span>★</span>
+                    {{ product.rating }}
+                  </p>
+                </div>
+
+                <div class="status-stack">
+                  <span class="stock-pill" [class.stock-pill--live]="product.inStock">
+                    {{ product.inStock ? 'In stock' : 'Out of stock' }}
+                  </span>
+                  <span class="stock-count">Stock {{ product.stock }}</span>
+                </div>
+              </div>
+
+              <div class="action-row">
+                <button
+                  type="button"
+                  class="action-btn action-btn--update"
+                  (click)="goToUpdateProduct(product._id)"
+                >
+                  Update
+                </button>
+                <button
+                  type="button"
+                  class="action-btn action-btn--delete"
+                  (click)="deleteProduct(product._id)"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+
+      <div class="pagination-bar">
+        <button
+          type="button"
+          class="pagination-btn"
+          [disabled]="!hasPrevPage"
+          (click)="goToPage(page - 1)"
+        >
+          Previous
+        </button>
+
+        <div class="page-indicator">Page {{ page }}</div>
+
+        <button
+          type="button"
+          class="pagination-btn"
+          [disabled]="!hasNextPage"
+          (click)="goToPage(page + 1)"
+        >
+          Next
+        </button>
+      </div>
+    }
   </div>
 </section>

@@ -12,9 +12,8 @@ import mongoose from "mongoose";
 //////////////////////////////////////////////
 
 export const allProduct = errorHandling(async (req, res, next) => {
-    const { search, page = 1, limit = 10 } = req.query;
+  const { search, dashboardAdmin, page = 1, limit = 10 } = req.query;
   if (search) {
-  
     const skip = (page - 1) * limit;
     // const foundOneSearched = await productModel.find() sooooooooooon.
     const products = await productModel
@@ -26,6 +25,28 @@ export const allProduct = errorHandling(async (req, res, next) => {
 
     const total = await productModel.countDocuments({
       title: { $regex: search, $options: "i" },
+    });
+    console.log(typeof page);
+
+    res.json({
+      page,
+      limit,
+      total,
+      products,
+      totalPages: Math.ceil(total / limit),
+    });
+  } else if (dashboardAdmin) {
+    const skip = (page - 1) * limit;
+    // const foundOneSearched = await productModel.find() sooooooooooon.
+    const products = await productModel
+      .find({
+        // title: { $regex: search, $options: "i" },
+      })
+      .skip(skip)
+      .limit(+limit);
+
+    const total = await productModel.countDocuments({
+      // title: { $regex: search, $options: "i" },
     });
     console.log(typeof page);
 
